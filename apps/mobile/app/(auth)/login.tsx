@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Alert,
   Image,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -26,6 +27,14 @@ export default function LoginPage() {
       }
     } catch (error: any) {
       Alert.alert("Sign-in Error", error.message);
+    }
+  }
+  function showComingSoon(provider: string) {
+    const message = `Signing in with ${provider} isn't available yet. Use email and password.`;
+    if (Platform.OS === "web") {
+      window.alert(message);
+    } else {
+      Alert.alert("Coming soon", message);
     }
   }
 
@@ -77,6 +86,7 @@ export default function LoginPage() {
           <TouchableOpacity
             className="flex-row items-center justify-center w-full border border-gray-600 py-4 rounded-lg mb-2"
             disabled={isLoading}
+            onPress={() => showComingSoon("Google")}
           >
             <Image
               source={require("@/assets/images/google-icon.png")}
@@ -90,6 +100,7 @@ export default function LoginPage() {
           <TouchableOpacity
             className="flex-row items-center justify-center w-full border border-gray-600 py-4 rounded-lg mb-2"
             disabled={isLoading}
+            onPress={() => showComingSoon("Apple")}
           >
             <AntDesign name="apple1" size={24} color="white" />
             <Text className="text-white ml-2 text-base">
